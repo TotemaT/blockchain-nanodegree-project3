@@ -4,16 +4,32 @@ This repository containts an Ethereum DApp that demonstrates a Supply Chain flow
 
 ## Tools
 
-- [Ethereum](https://www.ethereum.org/) - Ethereum is a decentralized platform that runs smart contracts
-- [IPFS](https://ipfs.io/) - IPFS is the Distributed Web | A peer-to-peer hypermedia protocol
-  to make the web faster, safer, and more open.
-- [Truffle Framework](http://truffleframework.com/) - Truffle is the most popular development framework for Ethereum with a mission to make your life a whole lot easier.
-- Solidity
-- Ganache-cli
-- Truffle
-- IPFS
+- Truffle v5.1.22
+- solc v0.6.6
+- truffle-assertions v0.9.2: Help testing event emitted in contracts
+- Node 10.x
+
+## Analysis
+
+### Activity Diagram
+
+![](./uml/activity.png)
+
+### Class Diagram
+
+![](./uml/class.png)
+
+### Sequence Diagram
+
+![](./uml/sequence.png)
+
+### State Diagram
+
+![](./uml/state.png)
 
 ## Deployment
+
+Contract deployed at [0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3](https://rinkeby.etherscan.io/address/0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3)
 
 ```
 ======================
