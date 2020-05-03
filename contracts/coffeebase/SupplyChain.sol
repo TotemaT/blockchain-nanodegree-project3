@@ -1,14 +1,19 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.6.0;
 
+import "../coffeecore/Ownable.sol";
 import "../coffeeaccesscontrol/ConsumerRole.sol";
 import "../coffeeaccesscontrol/DistributorRole.sol";
 import "../coffeeaccesscontrol/FarmerRole.sol";
 import "../coffeeaccesscontrol/RetailerRole.sol";
 
 
-contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
-    address owner;
-
+contract SupplyChain is
+    Ownable,
+    ConsumerRole,
+    DistributorRole,
+    FarmerRole,
+    RetailerRole
+{
     uint256 upc;
 
     uint256 sku;
@@ -57,11 +62,6 @@ contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
     event Received(uint256 upc);
     event Purchased(uint256 upc);
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can take this action");
-        _;
-    }
-
     modifier verifyCaller(address _address) {
         require(msg.sender == _address, "This caller cannot take this action");
         _;
@@ -76,7 +76,7 @@ contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
         _;
         uint256 _price = items[_upc].productPrice;
         uint256 amountToReturn = msg.value - _price;
-        items[_upc].consumerID.transfer(amountToReturn);
+        _transferTo(items[_upc].consumerID, amountToReturn);
     }
 
     modifier harvested(uint256 _upc) {
@@ -144,12 +144,12 @@ contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
     }
 
     constructor() public payable {
-        owner = msg.sender;
         sku = 1;
         upc = 1;
     }
 
     function kill() public {
+        address payable owner = owner();
         if (msg.sender == owner) {
             selfdestruct(owner);
         }
@@ -158,16 +158,16 @@ contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
     function harvestItem(
         uint256 _upc,
         address _originFarmerID,
-        string _originFarmName,
-        string _originFarmInformation,
-        string _originFarmLatitude,
-        string _originFarmLongitude,
-        string _productNotes
-    ) public {
+        string memory _originFarmName,
+        string memory _originFarmInformation,
+        string memory _originFarmLatitude,
+        string memory _originFarmLongitude,
+        string memory _productNotes
+    ) public onlyFarmer {
         items[_upc] = Item({
             sku: sku,
             upc: _upc,
-            ownerID: contractOwner,
+            ownerID: msg.sender,
             originFarmerID: _originFarmerID,
             originFarmName: _originFarmName,
             originFarmInformation: _originFarmInformation,
@@ -186,32 +186,24 @@ contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
         emit Harvested(_upc);
     }
 
-    function processItem(uint256 _upc)
-        public
-        harvested(_upc)
-        onlyFarmer();
-    {
+    function processItem(uint256 _upc) public harvested(_upc) onlyFarmer {
         items[_upc].itemState = State.Harvested;
         emit Processed(_upc);
     }
 
-    function packItem(uint256 _upc)
-        public
-        harvested(_upc)
-        onlyFarmer()
-    {
+    function packItem(uint256 _upc) public harvested(_upc) onlyFarmer {
         items[_upc].itemState = State.Packed;
-        emit Packed(_upc)
+        emit Packed(_upc);
     }
 
     function sellItem(uint256 _upc, uint256 _price)
         public
         packed(_upc)
-        onlyFarmer()
+        onlyFarmer
     {
         items[_upc].itemState = State.ForSale;
-        items[_upc].productPrice = price;
-        emit ForSale(_upc)
+        items[_upc].productPrice = _price;
+        emit ForSale(_upc);
     }
 
     function buyItem(uint256 _upc)
@@ -220,40 +212,28 @@ contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
         forSale(_upc)
         paidEnough(items[_upc].productPrice)
         checkValue(_upc)
-        onlyDistributor()
+        onlyDistributor
     {
         items[_upc].itemState = State.Sold;
         items[_upc].ownerID = msg.sender;
         items[_upc].distributorID = msg.sender;
-        msg.sender.transfer(items[_upc].productPrice)
+        msg.sender.transfer(items[_upc].productPrice);
         emit Sold(_upc);
     }
 
-    function shipItem(uint256 _upc)
-        public
-        sold(_upc)
-        onlyDistributor()
-    {
+    function shipItem(uint256 _upc) public sold(_upc) onlyDistributor {
         items[_upc].itemState = State.Shipped;
         emit Shipped(_upc);
     }
 
-    function receiveItem(uint256 _upc)
-        public
-        shipped(_upc)
-        onlyRetailer()
-    {
+    function receiveItem(uint256 _upc) public shipped(_upc) onlyRetailer {
         items[_upc].itemState = State.Received;
         items[_upc].ownerID = msg.sender;
         items[_upc].distributorID = msg.sender;
         emit Received(_upc);
     }
 
-    function purchaseItem(uint256 _upc)
-        public
-        received(_upc)
-        onlyConsumer()
-    {
+    function purchaseItem(uint256 _upc) public received(_upc) onlyConsumer {
         items[_upc].itemState = State.Purchased;
         items[_upc].ownerID = msg.sender;
         items[_upc].distributorID = msg.sender;
@@ -268,22 +248,20 @@ contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
             uint256 itemUPC,
             address ownerID,
             address originFarmerID,
-            string originFarmName,
-            string originFarmInformation,
-            string originFarmLatitude,
-            string originFarmLongitude
+            string memory originFarmName,
+            string memory originFarmInformation,
+            string memory originFarmLatitude,
+            string memory originFarmLongitude
         )
     {
-        return (
-            itemSKU,
-            itemUPC,
-            ownerID,
-            originFarmerID,
-            originFarmName,
-            originFarmInformation,
-            originFarmLatitude,
-            originFarmLongitude
-        );
+        itemSKU = items[_upc].sku;
+        itemUPC = items[_upc].upc;
+        ownerID = items[_upc].ownerID;
+        originFarmerID = items[_upc].originFarmerID;
+        originFarmName = items[_upc].originFarmName;
+        originFarmInformation = items[_upc].originFarmInformation;
+        originFarmLatitude = items[_upc].originFarmLatitude;
+        originFarmLongitude = items[_upc].originFarmLongitude;
     }
 
     function fetchItemBufferTwo(uint256 _upc)
@@ -293,7 +271,7 @@ contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
             uint256 itemSKU,
             uint256 itemUPC,
             uint256 productID,
-            string productNotes,
+            string memory productNotes,
             uint256 productPrice,
             uint256 itemState,
             address distributorID,
@@ -301,16 +279,18 @@ contract SupplyChain is ConsumerRole, DistributorRole, FamerRole, RetailerRole {
             address consumerID
         )
     {
-        return (
-            itemSKU,
-            itemUPC,
-            productID,
-            productNotes,
-            productPrice,
-            itemState,
-            distributorID,
-            retailerID,
-            consumerID
-        );
+        itemSKU = items[_upc].sku;
+        itemUPC = items[_upc].upc;
+        productID = items[_upc].productID;
+        productNotes = items[_upc].productNotes;
+        productPrice = items[_upc].productPrice;
+        itemState = uint(items[_upc].itemState);
+        distributorID = items[_upc].distributorID;
+        retailerID = items[_upc].retailerID;
+        consumerID = items[_upc].consumerID;
+    }
+
+    function _transferTo(address to, uint256 amount) private {
+        payable(to).transfer(amount);
     }
 }
