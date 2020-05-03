@@ -167,7 +167,7 @@ contract SupplyChain is
         items[_upc] = Item({
             sku: sku,
             upc: _upc,
-            ownerID: msg.sender,
+            ownerID: _originFarmerID,
             originFarmerID: _originFarmerID,
             originFarmName: _originFarmName,
             originFarmInformation: _originFarmInformation,
@@ -187,11 +187,11 @@ contract SupplyChain is
     }
 
     function processItem(uint256 _upc) public harvested(_upc) onlyFarmer {
-        items[_upc].itemState = State.Harvested;
+        items[_upc].itemState = State.Processed;
         emit Processed(_upc);
     }
 
-    function packItem(uint256 _upc) public harvested(_upc) onlyFarmer {
+    function packItem(uint256 _upc) public processed(_upc) onlyFarmer {
         items[_upc].itemState = State.Packed;
         emit Packed(_upc);
     }
@@ -229,14 +229,14 @@ contract SupplyChain is
     function receiveItem(uint256 _upc) public shipped(_upc) onlyRetailer {
         items[_upc].itemState = State.Received;
         items[_upc].ownerID = msg.sender;
-        items[_upc].distributorID = msg.sender;
+        items[_upc].retailerID = msg.sender;
         emit Received(_upc);
     }
 
     function purchaseItem(uint256 _upc) public received(_upc) onlyConsumer {
         items[_upc].itemState = State.Purchased;
         items[_upc].ownerID = msg.sender;
-        items[_upc].distributorID = msg.sender;
+        items[_upc].consumerID = msg.sender;
         emit Purchased(_upc);
     }
 
