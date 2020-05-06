@@ -32,6 +32,113 @@ This repository containts an Ethereum DApp that demonstrates a Supply Chain flow
 Contract deployed at [0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3](https://rinkeby.etherscan.io/address/0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3)
 
 ```
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'rinkeby-fork'
+> Network id:      4
+> Block gas limit: 10000000 (0x989680)
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > block number:        6425457
+   > block timestamp:     1588537273
+   > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
+   > balance:             2.897776309
+   > gas used:            210453 (0x33615)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00210453 ETH
+
+   -------------------------------------
+   > Total cost:          0.00210453 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'FarmerRole'
+   ----------------------
+   > block number:        6425459
+   > block timestamp:     1588537282
+   > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
+   > balance:             2.893202449
+   > gas used:            430023 (0x68fc7)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00430023 ETH
+
+
+   Deploying 'DistributorRole'
+   ---------------------------
+   > block number:        6425460
+   > block timestamp:     1588537288
+   > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
+   > balance:             2.888891539
+   > gas used:            431091 (0x693f3)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00431091 ETH
+
+
+   Deploying 'RetailerRole'
+   ------------------------
+   > block number:        6425461
+   > block timestamp:     1588537295
+   > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
+   > balance:             2.884586989
+   > gas used:            430455 (0x69177)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00430455 ETH
+
+
+   Deploying 'ConsumerRole'
+   ------------------------
+   > block number:        6425462
+   > block timestamp:     1588537301
+   > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
+   > balance:             2.880282439
+   > gas used:            430455 (0x69177)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00430455 ETH
+
+
+   Deploying 'SupplyChain'
+   -----------------------
+   > block number:        6425463
+   > block timestamp:     1588537319
+   > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
+   > balance:             2.849695599
+   > gas used:            3058684 (0x2eabfc)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.03058684 ETH
+
+   -------------------------------------
+   > Total cost:          0.04780708 ETH
+
+
+Summary
+=======
+> Total deployments:   6
+> Final cost:          0.04991161 ETH
+
+
+
+
+
+Starting migrations...
 ======================
 > Network name:    'rinkeby'
 > Network id:      4
@@ -43,13 +150,13 @@ Contract deployed at [0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3](https://rinkeb
 
    Deploying 'Migrations'
    ----------------------
-   > transaction hash:    0x641f9aafbb8b9be6a0cc2876d97df8866197a8c15888f11cd795c072b421ff4a
-   > Blocks: 0            Seconds: 4
-   > contract address:    0xF87efE7EDb4dEF05f7Dd3497Bd1075B6E16ac3D8
-   > block number:        6424697
-   > block timestamp:     1588525887
+   > transaction hash:    0x53c5c256a314513e41eb32c8a083425ab81b2cc9d62a97687aca84b2e7e9c84c
+   > Blocks: 1            Seconds: 12
+   > contract address:    0x76AEe0FA2A07f4D66FcD996689d51BF410BB6FF7
+   > block number:        6425461
+   > block timestamp:     1588537347
    > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
-   > balance:             2.950035179
+   > balance:             2.897626309
    > gas used:            225453 (0x370ad)
    > gas price:           10 gwei
    > value sent:          0 ETH
@@ -67,13 +174,13 @@ Contract deployed at [0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3](https://rinkeb
 
    Deploying 'FarmerRole'
    ----------------------
-   > transaction hash:    0x937e59fe8923047d6693f25c9bae6c37f4e1336d3b30eb8a5909400c8897bd94
-   > Blocks: 0            Seconds: 9
-   > contract address:    0x465575995d8719002dC805876F25794B21cc626b
-   > block number:        6424699
-   > block timestamp:     1588525917
+   > transaction hash:    0x474dfc98f2010afdd665b41f6bc6064fc51782026b4aa5cda2149fe3fb599794
+   > Blocks: 0            Seconds: 8
+   > contract address:    0xB817545bAe6481AF893C48f9B971C1C57b711e41
+   > block number:        6425463
+   > block timestamp:     1588537377
    > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
-   > balance:             2.945161319
+   > balance:             2.892752449
    > gas used:            445023 (0x6ca5f)
    > gas price:           10 gwei
    > value sent:          0 ETH
@@ -82,13 +189,13 @@ Contract deployed at [0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3](https://rinkeb
 
    Deploying 'DistributorRole'
    ---------------------------
-   > transaction hash:    0xdde0187e83fc4ad033ba30b383cf1d96c662951c5e811b02c3170eff15a1d682
+   > transaction hash:    0x950771035d15316cc75ecdf71d4ce8235f2fa6ea5a2caf4fedea0abfc13f4203
    > Blocks: 0            Seconds: 8
-   > contract address:    0x538B8794D72b4dbdB9C5F82410e5C9511720fc6d
-   > block number:        6424700
-   > block timestamp:     1588525932
+   > contract address:    0xf00e7B1e39F1289806728E84cF27d583D4604898
+   > block number:        6425464
+   > block timestamp:     1588537392
    > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
-   > balance:             2.940700409
+   > balance:             2.888291539
    > gas used:            446091 (0x6ce8b)
    > gas price:           10 gwei
    > value sent:          0 ETH
@@ -97,13 +204,13 @@ Contract deployed at [0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3](https://rinkeb
 
    Deploying 'RetailerRole'
    ------------------------
-   > transaction hash:    0x341d7b2357a43041d8d0dea981ada98ea73ad7b9e0559d11e5758ed0ad373ca6
-   > Blocks: 0            Seconds: 8
-   > contract address:    0xb6D13DE40527215f0Fa9847f2454089e3c8D1446
-   > block number:        6424701
-   > block timestamp:     1588525947
+   > transaction hash:    0x3b1911d1d885a895d0bd2639fceda58786a25467b5422f6e113df265808b6d72
+   > Blocks: 1            Seconds: 12
+   > contract address:    0x6708693929d1f0Af44d819383CAEAcdDfaFE1911
+   > block number:        6425465
+   > block timestamp:     1588537407
    > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
-   > balance:             2.936245859
+   > balance:             2.883836989
    > gas used:            445455 (0x6cc0f)
    > gas price:           10 gwei
    > value sent:          0 ETH
@@ -112,13 +219,13 @@ Contract deployed at [0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3](https://rinkeb
 
    Deploying 'ConsumerRole'
    ------------------------
-   > transaction hash:    0x29ca07af42de3ebe2c872b2f91ce872571c803b61f0d9efa7312d1fecf2316a2
+   > transaction hash:    0xb55699d80fa9add7954453c259f5c1a67183f857180a7d5dc1b9d3ed6460f66e
    > Blocks: 0            Seconds: 8
-   > contract address:    0x56AfcDF1E9a701E731e4ed83D7558A544c2D216F
-   > block number:        6424702
-   > block timestamp:     1588525962
+   > contract address:    0xAbA4F34Fe0daBb9b612c01e9b080bD887a672607
+   > block number:        6425466
+   > block timestamp:     1588537422
    > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
-   > balance:             2.931791309
+   > balance:             2.879382439
    > gas used:            445455 (0x6cc0f)
    > gas price:           10 gwei
    > value sent:          0 ETH
@@ -127,13 +234,13 @@ Contract deployed at [0x3d232657dfbe9ebab1a069f73c3d1a11ff92f1a3](https://rinkeb
 
    Deploying 'SupplyChain'
    -----------------------
-   > transaction hash:    0xda8311f8eabe546d1481e0847540b7e1b04502d1538fff4f29c8bf5ccaa3a939
+   > transaction hash:    0xadb49bbee156edde0070a3f4258898009a3920e5751580eeae7f6ab36ebc71e1
    > Blocks: 0            Seconds: 8
-   > contract address:    0x3D232657DFBe9EbaB1a069F73c3D1A11Ff92f1A3
-   > block number:        6424703
-   > block timestamp:     1588525977
+   > contract address:    0x82E488681AeC6b35E3713AAc45a076129B410c68
+   > block number:        6425467
+   > block timestamp:     1588537437
    > account:             0x16ABCf5f4aDce39E030A8672C55D49a84AB7f50b
-   > balance:             2.900154469
+   > balance:             2.847745599
    > gas used:            3163684 (0x304624)
    > gas price:           10 gwei
    > value sent:          0 ETH
@@ -150,4 +257,5 @@ Summary
 =======
 > Total deployments:   6
 > Final cost:          0.05171161 ETH
+
 ```

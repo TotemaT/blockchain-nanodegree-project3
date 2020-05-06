@@ -10,6 +10,11 @@ module.exports = {
       port: 7545,
       network_id: '*',
     },
+    ganache: {
+      host: '127.0.0.1',
+      port: 7545,
+      network_id: '*',
+    },
     rinkeby: {
       provider: () =>
         new HDWalletProvider(
