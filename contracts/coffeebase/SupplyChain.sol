@@ -186,7 +186,7 @@ contract SupplyChain is
         emit Harvested(_upc);
     }
 
-    function processItem(uint256 _upc) public harvested(_upc) onlyFarmer {
+    function processItem(uint256 _upc) public harvested(_upc) onlyFarmer verifyCaller(items[_upc].ownerID) {
         items[_upc].itemState = State.Processed;
         emit Processed(_upc);
     }
@@ -221,7 +221,7 @@ contract SupplyChain is
         emit Sold(_upc);
     }
 
-    function shipItem(uint256 _upc) public sold(_upc) onlyDistributor {
+    function shipItem(uint256 _upc) public sold(_upc) onlyFarmer {
         items[_upc].itemState = State.Shipped;
         emit Shipped(_upc);
     }
